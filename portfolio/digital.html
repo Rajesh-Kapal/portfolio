@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock Using Javascript</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../node_modules/bootstryap/dist/css/bootstrap.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: arial;
+        }
+
+        .hero {
+            width: 100vw;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #15ce68, #30197d);
+            columns: #fff;
+            position: relative;
+
+        }
+
+        .container-fluid {
+            width: 800px;
+            height: 180px;
+            position: absolute;
+            background: transparent;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .clock {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            background: rgba(70, 17, 150, 0.11);
+            backdrop-filter: blur(45px);
+            color: floralwhite;
+        }
+
+        .container-fluid::before {
+            content: '';
+            width: 200px;
+            height: 200px;
+            border-radius: 5px;
+            position: absolute;
+            top: -80px;
+            left: -50px;
+            background: #ff006a;
+            z-index: -1;
+        }
+
+        .container-fluid::after {
+            content: '';
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: absolute;
+            bottom: -80px;
+            right: -50px;
+            background: rgb(2, 154, 255);
+            z-index: -1;
+        }
+
+        .clock span {
+            font-size: 80px;
+            width: 120px;
+            display: inline;
+            text-align: center;
+            position: relative;
+            font-weight: bold;
+        }
+
+        .clock span::after {
+            position: absolute;
+            font-size: 17px;
+            bottom: -20px;
+            left: 50px;
+            transform: translateY(-50%);
+
+        }
+
+        #hrs::after {
+            content: 'HOURS';
+        }
+
+        #min::after {
+            content: 'MIN';
+        }
+
+        #sec::after {
+            content: 'SEC';
+        }
+
+        #date {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px 10px;
+            font-size: 50px;
+            color: #fff;
+
+            font-weight: bold;
+            animation: timer 4s ease infinite;
+
+
+        }
+
+        @keyframes timer {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-50px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="hero">
+        <div class="container-fluid">
+            <div class="clock">
+                <span id="hrs">00</span>
+                <span>:</span>
+                <span id="min">00</span>
+                <span>:</span>
+                <span id="sec">00</span>
+            </div>
+            <div id="date"></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var hrs = document.getElementById("hrs");
+        var min = document.getElementById("min");
+        var sec = document.getElementById("sec");
+
+        setInterval(() => {
+            var currentTime = new Date();
+            hrs.innerHTML = (currentTime.getHours() < 10 ? "0" : "") + currentTime.getHours();
+            min.innerHTML = (currentTime.getMinutes() < 10 ? "0" : "") + currentTime.getMinutes();
+            sec.innerHTML = (currentTime.getSeconds() < 10 ? "0" : "") + currentTime.getSeconds();
+        }, 1000);
+
+        var now = new Date();
+        var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var date = document.getElementById("date");
+
+        date.innerHTML = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}     ${weekdays[now.getDay()]}`
+
+    </script>
+</body>
+
+</html>
